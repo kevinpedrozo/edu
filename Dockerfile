@@ -1,10 +1,13 @@
-FROM nginx:alpine
+FROM python:3.12-slim
 
-# Copia todos los archivos del proyecto
-COPY . /usr/share/nginx/html
+WORKDIR /app
 
-# Expone el puerto 80
-EXPOSE 80
+COPY requirements.txt .
 
-# Inicia Nginx
-CMD ["nginx", "-g", "daemon off;"]
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 5000
+
+CMD ["gunicorn","--bind","0.0.0.0:5000","app:app"]
