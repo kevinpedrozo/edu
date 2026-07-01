@@ -3,8 +3,12 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 @app.route("/")
-def inicio():
+def index():
     return render_template("index.html")
+
+@app.route("/dashboard")
+def dashboard():
+    return "<h1>Bienvenido a EduControl</h1>"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
